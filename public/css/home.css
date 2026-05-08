@@ -1,0 +1,349 @@
+/* --- IMPORTACIÓN DE FUENTE --- */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap');
+
+/* --- RESET Y CONFIGURACIÓN BASE --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #050814;
+    color: #ffffff;
+    /* MEJORA DE NITIDEZ: Esto elimina la sensación borrosa */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    line-height: 1.5;
+}
+
+/* --- COMPONENTES DE NAVEGACIÓN --- */
+nav {
+    transition: all 0.3s ease;
+}
+
+/* Estilo para los links del Nav con espaciado elegante */
+nav a {
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+/* --- BOTONES MODERNOS --- */
+.btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #10b981; /* Emerald-500 */
+    color: #050814;
+    padding: 1rem 2rem;
+    border-radius: 1rem;
+    font-weight: 900;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    transition: all 0.3s transform;
+    box-shadow: 0 10px 20px -5px rgba(16, 185, 129, 0.3);
+}
+
+.btn-primary:hover {
+    background-color: #34d399; /* Emerald-400 */
+    transform: translateY(-2px);
+    box-shadow: 0 15px 25px -5px rgba(16, 185, 129, 0.4);
+}
+
+.btn-outline {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    padding: 1rem 2rem;
+    border-radius: 1rem;
+    font-weight: 900;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    transition: all 0.3s ease;
+}
+
+.btn-outline:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* --- PANELES Y TARJETAS (Glassmorphism) --- */
+.glass-panel {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 2.5rem;
+    padding: 2.5rem;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+.panel-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.panel-row:last-child {
+    border-bottom: none;
+}
+
+.story-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 2rem;
+    padding: 2rem;
+    transition: all 0.4s ease;
+}
+
+.story-card:hover {
+    transform: translateY(-8px);
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(16, 185, 129, 0.3);
+    box-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.7);
+}
+
+/* --- ELEMENTOS DE DISEÑO --- */
+.badge {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    color: #34d399;
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    width: fit-content;
+}
+
+.pulse {
+    width: 8px;
+    height: 8px;
+    background-color: #10b981;
+    border-radius: 50%;
+    position: relative;
+}
+
+.pulse::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #10b981;
+    border-radius: 50%;
+    animation: pulse-animation 2s infinite;
+}
+
+@keyframes pulse-animation {
+    0% { transform: scale(1); opacity: 0.8; }
+    100% { transform: scale(3.5); opacity: 0; }
+}
+
+/* --- TIPOGRAFÍA DE TÍTULOS --- */
+h1, h2, h3 {
+    letter-spacing: -0.02em;
+}
+
+.text-emerald-400 {
+    color: #34d399;
+}
+
+.text-gray-400 {
+    color: #a1a1aa; /* Un gris zinc más legible */
+}
+
+/* --- FOOTER ESPECÍFICO --- */
+footer {
+    position: relative;
+    width: 100%;
+    clear: both; /* Asegura que no se encime con floats anteriores */
+}
+
+/* Scrollbar Personalizada */
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-track {
+    background: #050814;
+}
+::-webkit-scrollbar-thumb {
+    background: #1f2937;
+    border-radius: 5px;
+    border: 2px solid #050814;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #10b981;
+}
+
+/* --- ESTILOS PARA VISTAS GUEST (LOGIN/REGISTRO) --- */
+
+/* Contenedor de inputs dentro del slot */
+.guest-content form input {
+    @apply w-full bg-white/[0.03] border border-white/10 rounded-xl px-5 py-4 text-white text-sm transition-all focus:outline-none focus:border-emerald-500/50 focus:bg-white/[0.05] focus:ring-4 focus:ring-emerald-500/5 mb-4;
+}
+
+.guest-content form label {
+    @apply block text-[10px] font-bold text-emerald-500/70 uppercase tracking-[0.2em] mb-2 ml-1;
+}
+
+/* Botón principal de Laravel dentro del slot */
+.guest-content form button, 
+.guest-content .btn-submit {
+    @apply w-full py-4 bg-emerald-500 hover:bg-emerald-400 text-[#050814] font-black rounded-xl transition-all duration-300 uppercase text-[11px] tracking-[0.2em] shadow-lg shadow-emerald-500/10 mt-4 active:scale-[0.98];
+}
+
+/* Links secundarios (Olvidé mi contraseña, etc) */
+.guest-content form a {
+    @apply text-xs text-gray-500 hover:text-emerald-400 transition-colors;
+}
+
+/* --- OPTIMIZACIÓN DE FORMULARIOS (LOGIN/REGISTRO) --- */
+
+/* 1. Los títulos de cada campo (Labels) */
+.guest-content label, 
+form label {
+    display: block;
+    font-size: 11px;
+    font-weight: 800; /* Más gruesa para que no se vea borrosa */
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #34d399 !important; /* Verde Esmeralda brillante para que resalte */
+    margin-bottom: 8px;
+    margin-left: 4px;
+}
+
+/* 2. Los campos de texto (Inputs) */
+.guest-content input,
+form input,
+form textarea {
+    width: 100%;
+    /* Fondo más oscuro y sólido para que no transparente el brillo del fondo */
+    background-color: #0d121f !important; 
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    border-radius: 12px;
+    padding: 14px 18px;
+    
+    /* TEXTO QUE ESCRIBE EL USUARIO */
+    color: #ffffff !important; /* Blanco puro */
+    font-size: 14px;
+    font-weight: 500;
+    
+    transition: all 0.3s ease;
+    margin-bottom: 20px;
+}
+
+/* 3. Cuando el usuario hace clic en el campo (Focus) */
+.guest-content input:focus,
+form input:focus {
+    outline: none;
+    border-color: #10b981 !important; /* Borde verde brillante */
+    background-color: #111827 !important;
+    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1); /* Brillo sutil alrededor */
+}
+
+/* 4. El texto de ayuda o placeholders (lo que sale antes de escribir) */
+::placeholder {
+    color: #4b5563 !important; /* Gris intermedio para que se note pero no compita */
+    opacity: 1;
+}
+
+/* 5. Estilo para el texto de error (por si fallan los datos) */
+.text-red-500, .text-sm.text-red-600 {
+    color: #fb7185 !important; /* Un rosa/rojo brillante que resalte en el negro */
+    font-weight: 600;
+    font-size: 12px;
+    margin-top: -15px;
+    margin-bottom: 15px;
+    display: block;
+}
+
+/* --- AJUSTE DE TAMAÑOS DE INPUTS --- */
+.guest-content input[type="email"],
+.guest-content input[type="password"],
+.guest-content input[type="text"] {
+    /* Reducimos el padding y la altura para que no se vean gigantes */
+    padding: 10px 14px !important; 
+    height: 45px !important; /* Altura estándar profesional */
+    margin-bottom: 16px !important;
+    max-width: 100%; /* Asegura que no se desborde */
+}
+
+/* --- AJUSTE DEL CHECKBOX (Remember Me) --- */
+/* Contenedor del checkbox */
+.guest-content .flex.items-center, 
+form .flex.items-center {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Espacio pequeño entre cuadro y texto */
+    margin-top: -5px;
+    margin-bottom: 15px;
+}
+
+/* El cuadrito del checkbox propiamente */
+.guest-content input[type="checkbox"] {
+    /* Quitamos el tamaño gigante */
+    width: 16px !important;
+    height: 16px !important;
+    margin: 0 !important; /* Quitamos márgenes extra */
+    
+    /* Estilo del cuadro */
+    background-color: #0d121f !important;
+    border: 1px solid rgba(16, 185, 129, 0.5) !important;
+    border-radius: 4px !important;
+    cursor: pointer;
+    
+    /* Evita que se vea como un bloque completo */
+    appearance: checkbox !important;
+    -webkit-appearance: checkbox !important;
+    display: inline-block !important;
+}
+
+/* Texto al lado del checkbox */
+.guest-content .ml-2, 
+form .ml-2, 
+form span.text-gray-600 {
+    font-size: 12px !important;
+    color: #a1a1aa !important; /* Gris suave */
+    font-weight: 500;
+}
+
+/* Forzar el fondo oscuro en todo el panel de Laravel */
+.bg-white {
+    background-color: #0b0f1a !important;
+}
+
+.shadow-sm, .shadow {
+    box-shadow: none !important;
+}
+
+.border-gray-100, .border-b {
+    border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Arreglar que el texto no sea negro */
+.text-gray-900, .text-gray-800 {
+    color: #ffffff !important;
+}
+
+.text-gray-600, .text-gray-500 {
+    color: #a1a1aa !important;
+}
