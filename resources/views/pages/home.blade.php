@@ -318,7 +318,7 @@
 
                                         <div class="lg:col-span-4 relative min-h-[340px] overflow-hidden">
 
-                                            <img src="{{ asset('img/4.gif') }}"
+                                            <img src="{{ asset('img/6.gif') }}"
                                                 class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-all duration-700 opacity-90">
 
                                             <div class="absolute inset-0 bg-gradient-to-r from-transparent to-[#050814]"></div>
@@ -427,7 +427,7 @@
 
                                         <div class="lg:col-span-4 relative min-h-[340px] overflow-hidden order-1 lg:order-2">
 
-                                            <img src="{{ asset('img/4.gif') }}"
+                                            <img src="{{ asset('img/6.gif') }}"
                                                 class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-all duration-700 opacity-90">
 
                                             <div class="absolute inset-0 bg-gradient-to-l from-transparent to-[#050814]"></div>

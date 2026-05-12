@@ -37,7 +37,7 @@
                             {{-- GIF --}}
                             <div class="relative h-44 overflow-hidden">
 
-                                <img src="{{ asset('img/4.gif') }}"
+                                <img src="{{ asset('img/8.gif') }}"
                                      alt="Historia"
                                      class="w-full h-full object-cover group-hover:scale-105 transition-all duration-500">
 
