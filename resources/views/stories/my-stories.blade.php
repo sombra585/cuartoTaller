@@ -5,6 +5,32 @@
         <div class="max-w-7xl mx-auto px-6">
 
             {{-- HEADER --}}
+            <form method="GET"
+            action="/my-stories"
+            class="glass-panel mb-10 p-5">
+
+                <div class="flex flex-col md:flex-row gap-4">
+
+                    <div class="flex-1">
+
+                        <input
+                            type="text"
+                            name="search"
+                            value="{{ request('search') }}"
+                            placeholder="Buscar entre mis historias..."
+                        >
+
+                    </div>
+
+                    <button class="btn-primary">
+
+                        Buscar
+
+                    </button>
+
+                </div>
+
+             </form>
             <div class="mb-10">
 
                 <span class="badge mb-4">
@@ -29,21 +55,25 @@
 
                         <div class="story-card overflow-hidden p-0 flex flex-col justify-between group hover:-translate-y-2 transition-all duration-300">
 
-                            {{-- GIF --}}
-                            <div class="relative h-44 overflow-hidden">
+                            {{-- PORTADA --}}
+                            <div class="relative h-52 overflow-hidden">
 
-                                <img src="{{ asset('img/7.gif') }}"
-                                     alt="Mi historia"
-                                     class="w-full h-full object-cover group-hover:scale-105 transition-all duration-500">
+                                <img
+                                    src="{{ $story->cover && file_exists(public_path('storage/' . $story->cover))
+                                        ? asset('storage/' . $story->cover)
+                                        : asset('img/7.gif') }}"
+                                    alt="Mi historia"
+                                    class="w-full h-full object-cover group-hover:scale-105 transition-all duration-500"
+                                >
 
-                                {{-- Overlay --}}
+                                {{-- OVERLAY --}}
                                 <div class="absolute inset-0 bg-gradient-to-t from-[#050814] via-[#050814]/30 to-transparent"></div>
 
-                                {{-- Badge --}}
+                                {{-- GENERO --}}
                                 <div class="absolute top-4 right-4 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 backdrop-blur-md">
 
                                     <span class="text-[10px] uppercase tracking-widest text-emerald-400 font-bold">
-                                        Tu historia
+                                        {{ $story->genre ?? 'Sin género' }}
                                     </span>
 
                                 </div>
@@ -155,18 +185,36 @@
 
             @else
 
-                <div class="glass-panel text-center py-20">
+                {{-- GIF --}}
+                <div class="relative overflow-hidden rounded-[2.5rem] mb-10 border border-white/10">
 
-                    <h2 class="text-3xl font-black text-white mb-4">
-                        No has creado historias
+                    <img
+                        src="{{ asset('img/1.gif') }}"
+                        class="w-full h-[280px] object-cover"
+                    >
+
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#050814] via-[#050814]/50 to-transparent"></div>
+
+                </div>
+
+                {{-- EMPTY STATE --}}
+                <div class="glass-panel text-center py-24">
+
+                    <h2 class="text-5xl font-black text-white mb-4 tracking-tight">
+
+                        Aún no has creado ninguna historia
+
                     </h2>
 
-                    <p class="text-gray-500 mb-8 text-sm">
-                        Comienza escribiendo tu primera narrativa.
+                    <p class="text-gray-500 text-lg max-w-xl mx-auto leading-relaxed">
+
+                        Comienza escribiendo tu primera narrativa colaborativa
+                        dentro de StoryVerse.
+
                     </p>
 
                     <a href="/stories/create"
-                       class="btn-primary">
+                       class="btn-primary mt-10 inline-flex">
 
                         Crear Historia
 

@@ -9,54 +9,73 @@ use Illuminate\Http\Request;
 class StoryController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Listar historias (con búsqueda)
      */
-    public function index()
+    public function index(Request $request)
     {
-        $stories = story::latest()->get();
+        $query = Story::with('user')->latest();
 
-        return view ('stories.index', compact('stories'));
+        if ($request->filled('search')) {
+            $query->where('title', 'like', '%' . $request->search . '%')
+                  ->orWhere('content', 'like', '%' . $request->search . '%')
+                  ->orWhere('genre', 'like', '%' . $request->search . '%');
+        }
+
+        $stories = $query->get();
+
+        return view('stories.index', compact('stories'));
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Formulario de creación
      */
     public function create()
     {
-        return view ('stories.create');
+        return view('stories.create');
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Guardar nueva historia
      */
     public function store(Request $request)
-{
-    $request->validate([
-        'title' => 'required|max:255',
-        'content' => 'required'
-    ]);
+    {
+        $request->validate([
+            'title' => 'required|max:255',
+            'genre' => 'required|max:100',
+            'content' => 'required',
+            'cover' => 'nullable|file|max:4096'
+        ]);
 
-    $story = Story::create([
-        'title' => $request->title,
-        'content' => $request->content,
-        'user_id' => auth()->id()
-    ]);
+        $coverPath = null;
 
-    return redirect('/stories/' . $story->id)
-        ->with('success', 'Historia creada correctamente');
-}
+        if ($request->hasFile('cover')) {
+            $coverPath = $request->file('cover')
+                ->store('covers', 'public');
+        }
+
+        $story = Story::create([
+            'title' => $request->title,
+            'genre' => $request->genre,
+            'cover' => $coverPath,
+            'content' => $request->content,
+            'user_id' => auth()->id()
+        ]);
+
+        return redirect('/stories/' . $story->id);
+    }
 
     /**
-     * Display the specified resource.
+     * Ver historia específica
      */
     public function show(Story $story)
     {
         $story->load('user', 'fragments.user');
+
         return view('stories.show', compact('story'));
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Formulario de edición
      */
     public function edit(Story $story)
     {
@@ -68,21 +87,32 @@ class StoryController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Actualizar historia
      */
     public function update(Request $request, Story $story)
     {
-         if ($story->user_id != auth()->id()) {
+        if ($story->user_id != auth()->id()) {
             abort(403);
         }
 
         $request->validate([
-            'title' => 'required',
-            'content' => 'required'
+            'title' => 'required|max:255',
+            'genre' => 'required|max:100',
+            'content' => 'required',
+            'cover' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:4096'
         ]);
+
+        $coverPath = $story->cover;
+
+        if ($request->hasFile('cover')) {
+            $coverPath = $request->file('cover')
+                ->store('covers', 'public');
+        }
 
         $story->update([
             'title' => $request->title,
+            'genre' => $request->genre,
+            'cover' => $coverPath,
             'content' => $request->content
         ]);
 
@@ -90,7 +120,7 @@ class StoryController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Eliminar historia
      */
     public function destroy(Story $story)
     {
@@ -103,18 +133,25 @@ class StoryController extends Controller
         return back();
     }
 
-     public function myStories()
+    /**
+     * Mis historias (con búsqueda)
+     */
+    public function myStories(Request $request)
     {
-        $stories = Story::where('user_id', auth()->id())
-                        ->latest()
-                        ->get();
+        $stories = Story::with('user')
+            ->where('user_id', auth()->id())
+            ->when($request->search, function ($query) use ($request) {
+                $query->where('title', 'like', '%' . $request->search . '%');
+            })
+            ->latest()
+            ->get();
 
         return view('stories.my-stories', compact('stories'));
     }
 
-
-
-
+    /**
+     * Agregar fragmento a una historia
+     */
     public function addFragment(Request $request, Story $story)
     {
         $request->validate([

@@ -6,30 +6,28 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
-        Schema::create('stories', function (Blueprint $table) {
+       Schema::create('stories', function (Blueprint $table) {
 
-            $table->id();
+    $table->id();
 
-            $table->string('title');
+    $table->string('title');
 
-            $table->text('content');
+    $table->string('genre');
 
-            $table->foreignId('user_id')
-                  ->constrained()
-                  ->onDelete('cascade');
+    $table->string('cover')->nullable();
 
-            $table->timestamps();
-        });
+    $table->longText('content');
+
+    $table->foreignId('user_id')
+          ->constrained()
+          ->onDelete('cascade');
+
+    $table->timestamps();
+});
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('stories');

@@ -9,10 +9,12 @@ use App\Models\StoryFragment;
 class Story extends Model
 {
     protected $fillable = [
-        'title',
-        'content',
-        'user_id'
-    ];
+    'title',
+    'genre',
+    'cover',
+    'content',
+    'user_id'
+];
 
     public function user()
     {

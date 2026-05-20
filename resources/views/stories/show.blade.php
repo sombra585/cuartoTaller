@@ -4,34 +4,37 @@
 
         <div class="max-w-5xl mx-auto px-6">
 
-            {{-- HISTORIA PRINCIPAL --}}
+            {{-- HISTORIA --}}
             <div class="glass-panel mb-10">
 
-                {{-- CABECERA --}}
-                <div class="border-b border-white/5 pb-5 mb-5">
+                {{-- PORTADA --}}
+                @if($story->cover)
 
-                    <div class="flex items-center justify-between flex-wrap gap-4">
+                    <div class="mb-8">
 
-                        <div>
-
-                            <h1 class="text-5xl font-black text-white leading-tight">
-                                {{ $story->title }}
-                            </h1>
-
-                            <p class="text-sm text-emerald-400 mt-2">
-                                Creada por
-                                <span class="font-bold">
-                                    {{ $story->user->name }}
-                                </span>
-                            </p>
-
-                        </div>
-
-                        <span class="text-[10px] uppercase tracking-[0.25em] bg-emerald-500/10 text-emerald-400 px-4 py-2 rounded-full border border-emerald-500/20">
-                            Historia Activa
-                        </span>
+                        <img
+                            src="{{ asset('storage/' . $story->cover) }}"
+                            class="w-full h-[420px] object-cover rounded-3xl"
+                        >
 
                     </div>
+
+                @endif
+
+                {{-- HEADER --}}
+                <div class="border-b border-white/5 pb-5 mb-">
+
+                    <h1 class="text-5xl font-black text-white leading-tight">
+                        {{ $story->title }}
+                    </h1>
+
+                    <p class="text-sm text-emerald-400 mt-3 font-bold">
+                        {{ $story->user->name }}
+                    </p>
+
+                    <p class="text-[11px] uppercase tracking-[0.2em] text-emerald-400/70 mt-3 font-bold">
+                        {{ $story->genre }}
+                    </p>
 
                 </div>
 
@@ -57,10 +60,6 @@
                             Continuaciones
                         </h2>
 
-                        <p class="text-gray-500 text-sm mt-1">
-                            Usuarios expandiendo la narrativa
-                        </p>
-
                     </div>
 
                     <span class="text-[10px] uppercase tracking-widest bg-blue-500/10 text-blue-400 px-4 py-2 rounded-full border border-blue-500/20">
@@ -73,35 +72,66 @@
 
                     <div class="space-y-6">
 
-                        @foreach($story->fragments as $fragment)
+                                                @foreach($story->fragments as $fragment)
 
-                            <div class="story-card">
+                            <div class="story-card relative overflow-hidden p-0 border border-white/10">
 
-                                {{-- USER --}}
-                                <div class="flex items-center justify-between mb-4">
+                                <div class="absolute inset-0 bg-gradient-to-br from-emerald-500/[0.03] via-transparent to-blue-500/[0.03]"></div>
 
-                                    <div>
+                                <div class="relative p-5">
 
-                                        <p class="text-white font-bold">
-                                            {{ $fragment->user->name }}
-                                        </p>
+                                    {{-- HEADER (más compacto) --}}
+                                    <div class="flex items-center justify-between mb-2">
 
-                                        <p class="text-gray-500 text-xs">
-                                            {{ $fragment->created_at->diffForHumans() }}
+                                        <div class="flex items-center gap-3">
+
+                                            <div class="w-11 h-11 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center">
+
+                                                <span class="text-emerald-400 font-black text-sm">
+                                                    {{ strtoupper(substr($fragment->user->name, 0, 1)) }}
+                                                </span>
+
+                                            </div>
+
+                                            <div>
+
+                                                <p class="text-white font-bold text-sm leading-none">
+                                                    {{ $fragment->user->name }}
+                                                </p>
+
+                                                <p class="text-gray-500 text-[11px] mt-1 uppercase tracking-[0.15em]">
+                                                    {{ $fragment->created_at->diffForHumans() }}
+                                                </p>
+
+                                            </div>
+
+                                        </div>
+
+                                        <div class="px-3 py-1 rounded-lg bg-emerald-500/10 border border-emerald-500/20">
+
+                                            <span class="text-[10px] uppercase tracking-[0.2em] text-emerald-400 font-bold">
+                                                Fragmento
+                                            </span>
+
+                                        </div>
+
+                                    </div>
+
+                                    {{-- TEXTO --}}
+                                    <div class="relative mt-1">
+
+                                        {{-- LINEA VERTICAL --}}
+                                        <div class="absolute left-0 top-0 bottom-0 w-[2px] bg-gradient-to-b from-emerald-500/60 to-transparent rounded-full"></div>
+
+                                        <p class="text-gray-200 leading-7 whitespace-pre-line text-[15px] pl-4">
+
+                                            {{ $fragment->content }}
+
                                         </p>
 
                                     </div>
 
-                                    <span class="text-[10px] uppercase tracking-widest bg-white/5 text-gray-400 px-3 py-1 rounded-full">
-                                        Continuación
-                                    </span>
-
                                 </div>
-
-                                {{-- TEXTO --}}
-                                <p class="text-gray-300 leading-7 whitespace-pre-line">
-                                    {{ $fragment->content }}
-                                </p>
 
                             </div>
 
@@ -117,10 +147,6 @@
                             Nadie ha continuado esta historia
                         </h3>
 
-                        <p class="text-gray-500">
-                            Sé el primero en expandir esta narrativa.
-                        </p>
-
                     </div>
 
                 @endif
@@ -135,10 +161,6 @@
                     <h2 class="text-3xl font-black text-white">
                         Continuar Historia
                     </h2>
-
-                    <p class="text-gray-500 mt-2">
-                        Añade un nuevo fragmento a la narrativa.
-                    </p>
 
                 </div>
 
@@ -162,8 +184,7 @@
 
                     </div>
 
-                    <button
-                        class="btn-primary">
+                    <button class="btn-primary">
 
                         Publicar Continuación
 

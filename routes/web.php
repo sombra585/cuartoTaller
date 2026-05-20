@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StoryController;
 use App\Models\Story;
+use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
 
@@ -23,7 +24,7 @@ Route::middleware('auth')->group(function () {
 
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
 
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::delete('/profile', [ProfileController::class, 'destroy']);
 
     Route::get('/stories/create', [StoryController::class, 'create']);
 
@@ -42,6 +43,17 @@ Route::middleware('auth')->group(function () {
     Route::put('/stories/{story}', [StoryController::class, 'update']);
 
     Route::delete('/stories/{story}', [StoryController::class, 'destroy']);
+
+
+
+    // USERS
+    Route::get('/users', [App\Http\Controllers\UserController::class, 'index']);
+
+    Route::get('/users/{user}/edit', [App\Http\Controllers\UserController::class, 'edit']);
+
+    Route::put('/users/{user}', [App\Http\Controllers\UserController::class, 'update']);
+
+    Route::delete('/users/{user}', [App\Http\Controllers\UserController::class, 'destroy']);
 
 });
 
