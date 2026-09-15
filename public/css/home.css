@@ -407,4 +407,67 @@ select option {
     color: white;
 }
 
-shadow-[0_0_10px_rgba(16,185,129,0.4)]
+/* =========================================================
+CREAR HISTORIA · AJUSTES VISUALES
+========================================================= */
+
+form textarea {
+min-height: 280px;
+resize: vertical;
+line-height: 1.8;
+}
+
+form textarea:focus {
+outline: none;
+border-color: #10b981 !important;
+background-color: #111827 !important;
+box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.08);
+}
+
+form input[type="text"]:focus {
+transform: translateY(-1px);
+}
+
+form select {
+appearance: auto;
+cursor: pointer;
+}
+
+form input[type="file"] {
+margin-bottom: 0;
+}
+
+form button.btn-primary {
+cursor: pointer;
+border: none;
+}
+
+form button.btn-primary:active {
+transform: translateY(1px);
+}
+
+/* Mejora del panel lateral */
+@media (min-width: 1024px) {
+
+
+.lg\:sticky {
+    align-self: start;
+}
+
+
+}
+
+/* En pantallas pequeñas */
+@media (max-width: 640px) {
+
+
+.glass-panel {
+    border-radius: 1.75rem;
+}
+
+form textarea {
+    min-height: 220px;
+}
+
+
+}
