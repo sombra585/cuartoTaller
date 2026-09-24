@@ -43,7 +43,7 @@ class StoryController extends Controller
             'title' => 'required|max:255',
             'genre' => 'required|max:100',
             'content' => 'required',
-            'cover' => 'nullable|file|max:4096'
+            'cover' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:4096'
         ]);
 
         $coverPath = null;
