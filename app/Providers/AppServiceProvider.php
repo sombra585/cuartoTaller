@@ -1,9 +1,10 @@
 <?php
-
+ 
 namespace App\Providers;
-
+ 
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
-
+ 
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -13,12 +14,14 @@ class AppServiceProvider extends ServiceProvider
     {
         //
     }
-
+ 
     /**
      * Bootstrap any application services.
      */
     public function boot(): void
     {
-        //
+        if (str(config('app.url'))->startsWith('https')) {
+            URL::forceScheme('https');
+        }
     }
 }
